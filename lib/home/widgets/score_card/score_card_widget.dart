@@ -6,11 +6,14 @@ class ScoreCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 14),
+      padding: const EdgeInsets.only(left: 20, right: 20),
       child: Container(
           height: 136,
           decoration: BoxDecoration(
-              color: AppColors.white, borderRadius: BorderRadius.circular(15)),
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.fromBorderSide(BorderSide(color: AppColors.border)),
+          ),
           child: Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Row(
