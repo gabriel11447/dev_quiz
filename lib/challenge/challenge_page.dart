@@ -16,7 +16,7 @@ class _ChallengePageState extends State<ChallengePage> {
         child: SafeArea(child: QuestionIndicatorWidget()),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 26),
         child: QuizWidget(
           title: "O que o Flutter faz em sua totalidade?",
         ),
