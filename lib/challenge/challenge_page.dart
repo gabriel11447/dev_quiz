@@ -25,66 +25,75 @@ class _ChallengePageState extends State<ChallengePage> {
     super.initState();
   }
 
+  void nextPage() {
+    if (controller.currentPage < widget.questions.length)
+      pageController.nextPage(
+        duration: Duration(milliseconds: 500),
+        curve: Curves.linear,
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(86),
-          child: SafeArea(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BackButton(),
-              ValueListenableBuilder<int>(
-                valueListenable: controller.currentPageNotifier,
-                builder: (context, value, _) => QuestionIndicatorWidget(
-                  currentPage: value,
-                  length: widget.questions.length,
-                ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(86),
+        child: SafeArea(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BackButton(),
+            ValueListenableBuilder<int>(
+              valueListenable: controller.currentPageNotifier,
+              builder: (context, value, _) => QuestionIndicatorWidget(
+                currentPage: value,
+                length: widget.questions.length,
               ),
-            ],
-          )),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 26),
-          child: PageView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: pageController,
-            children: widget.questions
-                .map(
-                  (e) => QuizWidget(question: e),
-                )
-                .toList(),
-          ),
-        ),
-        bottomNavigationBar: SafeArea(
-          bottom: true,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                    child: NextButtonWidget.white(
-                  label: "Pular",
-                  onTap: () {
-                    pageController.nextPage(
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.linear,
-                    );
-                  },
-                )),
-                SizedBox(
-                  width: 7,
-                ),
-                Expanded(
-                    child: NextButtonWidget.green(
-                  label: "Confirmar",
-                  onTap: () {},
-                )),
-              ],
             ),
-          ),
-        ));
+          ],
+        )),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 26),
+        child: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: pageController,
+          children: widget.questions
+              .map(
+                (e) => QuizWidget(
+                  question: e,
+                  onChange: nextPage,
+                ),
+              )
+              .toList(),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        bottom: true,
+        child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            child: ValueListenableBuilder<int>(
+                valueListenable: controller.currentPageNotifier,
+                builder: (context, value, _) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        if (value < widget.questions.length)
+                          Expanded(
+                              child: NextButtonWidget.white(
+                            label: "Pular",
+                            onTap: nextPage,
+                          )),
+                        if (value == widget.questions.length)
+                          Expanded(
+                              child: NextButtonWidget.green(
+                            label: "Confirmar",
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          )),
+                      ],
+                    ))),
+      ),
+    );
   }
 }
