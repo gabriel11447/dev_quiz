@@ -1,5 +1,4 @@
 import 'package:dev_quiz/challenge/challenge_page.dart';
-import 'package:dev_quiz/challenge/widgets/quiz/quiz_widget.dart';
 import 'package:dev_quiz/core/core.dart';
 import 'package:dev_quiz/home/home_state.dart';
 
@@ -72,6 +71,7 @@ class _HomePageState extends State<HomePage> {
                                       MaterialPageRoute(
                                           builder: (context) => ChallengePage(
                                                 questions: e.questions,
+                                                title: e.title,
                                               )));
                                 },
                               ))
