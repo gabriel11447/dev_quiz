@@ -4,10 +4,6 @@
 
 <h1 align="center">DevQuiz</h1>
 
-<p align="center">
-      <img src="https://lh5.googleusercontent.com/N3big8YZ8CJ8EGXcYN9_T4l6uDZj5TGU6KojLiowkBLA1b07QTxGCfQKj3W7BqnNMNwxQIzkgOpIizZBPm5E=w1920-h973" alt="dev.quiz_"/>
-</p>
-
 ---
 
 <h2 align="center">Topics 📋</h2>
